@@ -16,4 +16,8 @@ class ProdutoRead(ProdutoBase):
         orm_mode = True
 
 class ProdutoPrecoUpdate(BaseModel):
+    id: int
     preco: float
+
+class ProdutoDelete(BaseModel):
+    id: int
