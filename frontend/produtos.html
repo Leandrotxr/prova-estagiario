@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Produtos</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <h1>Produtos</h1>
 
+    <input id="nomeProduto" placeholder="Nome do produto">
+    <input id="precoProduto" placeholder="Preço">
+    <input id="categoriaId" placeholder="ID da categoria">
+    <button onclick="criarProduto()">Criar</button>
+
+    <ul id="listaProdutos"></ul>
+
+    <script src="js/api.js"></script>
+    <script src="js/produtos.js"></script>
 </body>
 </html>
