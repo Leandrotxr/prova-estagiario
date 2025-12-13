@@ -1,0 +1,26 @@
+.container {
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    width: 250px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #f9fafb;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #ddd;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    background-color: #eef2f7;
+}
