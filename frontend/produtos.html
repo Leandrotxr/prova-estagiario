@@ -6,16 +6,52 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Produtos</h1>
 
+<h1>Produtos</h1>
+
+<!-- CRIAR -->
+<section>
+    <h2>Criar produto</h2>
     <input id="nomeProduto" placeholder="Nome do produto">
-    <input id="precoProduto" placeholder="Preço">
-    <input id="categoriaId" placeholder="ID da categoria">
+    <input id="precoProduto" type="number" step="0.01" placeholder="Preço">
+    <input id="categoriaIdProduto" type="number" placeholder="ID da categoria">
     <button onclick="criarProduto()">Criar</button>
+</section>
 
+<!-- LISTAR -->
+<section>
+    <h2>Listar todos</h2>
+    <button onclick="listarProdutos()">Atualizar</button>
     <ul id="listaProdutos"></ul>
+</section>
 
-    <script src="js/api.js"></script>
-    <script src="js/produtos.js"></script>
+<!-- BUSCAR -->
+<section>
+    <h2>Buscar por ID</h2>
+    <input id="buscarProdutoId" type="number" placeholder="ID">
+    <button onclick="buscarProduto()">Buscar</button>
+    <p id="resultadoBuscaProduto"></p>
+</section>
+
+<!-- ATUALIZAR PREÇO -->
+<section>
+    <h2>Atualizar preço</h2>
+    <input id="atualizarProdutoId" type="number" placeholder="ID do produto">
+    <input id="novoPrecoProduto" type="number" step="0.01" placeholder="Novo preço">
+    <button onclick="atualizarPreco()">Atualizar</button>
+    <p id="resultadoAtualizarPreco"></p>
+</section>
+
+<!-- DELETAR -->
+<section>
+    <h2>Deletar produto</h2>
+    <input id="deletarProdutoId" type="number" placeholder="ID">
+    <button onclick="deletarProduto()">Deletar</button>
+    <p id="resultadoDeleteProduto"></p>
+</section>
+
+<script src="js/api.js"></script>
+<script src="js/produtos.js"></script>
+
 </body>
 </html>
