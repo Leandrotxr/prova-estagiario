@@ -14,3 +14,6 @@ class ProdutoRead(ProdutoBase):
 
     class Config:
         orm_mode = True
+
+class ProdutoPrecoUpdate(BaseModel):
+    preco: float
