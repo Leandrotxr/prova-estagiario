@@ -12,3 +12,6 @@ class CategoriaRead(CategoriaBase):
 
     class Config:
         orm_mode = True
+
+class CategoriaDelete(BaseModel):
+    id: int

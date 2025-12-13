@@ -23,11 +23,12 @@ def buscar_produto(db: Session, produto_id: int):
     return db.query(Produto).filter(Produto.id == produto_id).first()
 
 
-def atualizar_preco_produto(db: Session, produto: Produto, dados: ProdutoPrecoUpdate):
-    produto.preco = dados.preco
+def atualizar_preco_produto(db, produto, novo_preco: float):
+    produto.preco = novo_preco
     db.commit()
     db.refresh(produto)
     return produto
+
 
 
 def deletar_produto(db: Session, produto: Produto):

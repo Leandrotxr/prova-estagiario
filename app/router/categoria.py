@@ -3,19 +3,19 @@ from sqlalchemy.orm import Session
 
 from app.router.deps import get_db
 from app.crud import categoria
-from app.schemas.categoria import CategoriaCreate, CategoriaRead
+from app.schemas.categoria import CategoriaCreate, CategoriaRead, CategoriaDelete
 
 router = APIRouter(prefix="/categorias")
 
-@router.get("/")
+@router.get("/", response_model=list[CategoriaRead])
 def listar_categorias(db: Session = Depends(get_db)):
     return categoria.listar_categorias(db)
 
-@router.post("/criar_categoria")
+@router.post("/criar_categoria", response_model=CategoriaRead, status_code=201)
 def criar_categoria(dados: CategoriaCreate, db: Session = Depends(get_db)):
     return categoria.criar_categoria(db, dados)
 
-@router.get("/{categoria_id}")
+@router.get("/{categoria_id}", response_model=CategoriaRead)
 def buscar_categoria(categoria_id: int, db: Session = Depends(get_db)):
     categoria_buscada = categoria.buscar_categoria(db, categoria_id)
 
@@ -24,9 +24,9 @@ def buscar_categoria(categoria_id: int, db: Session = Depends(get_db)):
 
     return categoria_buscada
 
-@router.delete("/{categoria_id}")
-def deletar_categoria(categoria_id: int, db: Session = Depends(get_db)):
-    categoria_buscada = categoria.buscar_categoria(db, categoria_id)
+@router.delete("/deletar_categoria")
+def deletar_categoria(dados: CategoriaDelete, db: Session = Depends(get_db)):
+    categoria_buscada = categoria.buscar_categoria(db, dados.id)
 
     if categoria_buscada is None:
         raise HTTPException(404, "Categoria não encontrada")
