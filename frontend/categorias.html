@@ -6,14 +6,41 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Categorias</h1>
 
+<h1>Categorias</h1>
+
+<!-- CRIAR -->
+<section>
+    <h2>Criar categoria</h2>
     <input id="nomeCategoria" placeholder="Nome da categoria">
     <button onclick="criarCategoria()">Criar</button>
+</section>
 
+<!-- LISTAR -->
+<section>
+    <h2>Listar todas</h2>
+    <button onclick="listarCategorias()">Atualizar</button>
     <ul id="listaCategorias"></ul>
+</section>
 
-    <script src="js/api.js"></script>
-    <script src="js/categorias.js"></script>
+<!-- BUSCAR -->
+<section>
+    <h2>Buscar por ID</h2>
+    <input id="buscarId" type="number" placeholder="ID">
+    <button onclick="buscarCategoria()">Buscar</button>
+    <p id="resultadoBusca"></p>
+</section>
+
+<!-- DELETAR -->
+<section>
+    <h2>Deletar por ID</h2>
+    <input id="deletarId" type="number" placeholder="ID">
+    <button onclick="deletarCategoria()">Deletar</button>
+    <p id="resultadoDelete"></p>
+</section>
+
+<script src="js/api.js"></script>
+<script src="js/categorias.js"></script>
+
 </body>
 </html>
