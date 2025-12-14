@@ -10,7 +10,7 @@ function listarProdutos() {
 
             dados.forEach(p => {
                 const li = document.createElement("li");
-                li.textContent = `${p.id} - ${p.nome} | R$ ${p.preco} | Categoria: ${p.categoria.nome}`;
+                li.textContent = `${p.id} - ${p.nome} | ${formatarMoeda(p.preco)} | Categoria: ${p.categoria.nome}`;
                 lista.appendChild(li);
             });
         })
@@ -26,6 +26,11 @@ function criarProduto() {
 
     if (!nome || !preco || !categoria_id) {
         alert("Preencha todos os campos");
+        return;
+    }
+
+    if (Number(preco) < 0) {
+        alert("Não é possível colocar um preço menor que 0");
         return;
     }
 
@@ -62,18 +67,25 @@ function buscarProduto() {
 
     fetch(`${API_URL}/produtos/${id}`)
         .then(res => {
-            if (!res.ok) throw new Error("Produto não encontrado");
+            if (res.status === 404) {
+                throw new Error("Produto não encontrado");
+            }
+            if (!res.ok) {
+                throw new Error("Erro na requisição");
+            }
             return res.json();
         })
         .then(p => {
             document.getElementById("resultadoBuscaProduto").innerText =
-                `${p.id} - ${p.nome} | R$ ${p.preco} | Categoria: ${p.categoria.nome}`;
+                `${p.id} - ${p.nome} | ${formatarMoeda(p.preco)} | Categoria: ${p.categoria.nome}`;
         })
-        .catch(() => {
+        .catch(err => {
             document.getElementById("resultadoBuscaProduto").innerText =
-                "Produto não encontrado";
+                err.message;
         });
 }
+
+
 
 function atualizarPreco() {
     const id = document.getElementById("atualizarProdutoId").value;
@@ -81,6 +93,11 @@ function atualizarPreco() {
 
     if (!id || !preco) {
         alert("Informe o ID e o novo preço");
+        return;
+    }
+
+    if (Number(preco) < 0) {
+        alert("Não é possível colocar um preço menor que 0");
         return;
     }
 
@@ -95,16 +112,22 @@ function atualizarPreco() {
         })
     })
     .then(res => {
-        if (!res.ok) throw new Error("Erro ao atualizar preço");
+        if (res.status === 404) {
+            throw new Error("Produto não encontrado");
+        }
+        return res.json();
+    })
+    .then(() => {
         document.getElementById("resultadoAtualizarPreco").innerText =
             "Preço atualizado com sucesso";
         listarProdutos();
     })
-    .catch(() => {
+    .catch(err => {
         document.getElementById("resultadoAtualizarPreco").innerText =
-            "Erro ao atualizar preço";
+            err.message;
     });
 }
+
 
 function deletarProduto() {
     const id = document.getElementById("deletarProdutoId").value;
@@ -122,15 +145,43 @@ function deletarProduto() {
         body: JSON.stringify({ id: Number(id) })
     })
     .then(res => {
-        if (!res.ok) throw new Error("Erro ao deletar produto");
+        if (res.status === 404) {
+            throw new Error("Produto não encontrado");
+        }
+        return res.json();
+    })
+    .then(() => {
         document.getElementById("resultadoDeleteProduto").innerText =
             "Produto removido com sucesso";
         listarProdutos();
     })
-    .catch(() => {
+    .catch(err => {
         document.getElementById("resultadoDeleteProduto").innerText =
-            "Erro ao deletar produto";
+            err.message;
     });
 }
 
+
+
+function carregarCategorias() {
+    fetch(`${API_URL}/categorias/`)
+        .then(res => {
+            if (!res.ok) throw new Error("Erro ao buscar categorias");
+            return res.json();
+        })
+        .then(categorias => {
+            const select = document.getElementById("categoriaIdProduto");
+            select.innerHTML = '<option value="">Selecione a categoria</option>';
+
+            categorias.forEach(c => {
+                const option = document.createElement("option");
+                option.value = c.id;
+                option.textContent = `${c.id} - ${c.nome}`;
+                select.appendChild(option);
+            });
+        })
+        .catch(err => console.error(err));
+}
+
 listarProdutos();
+carregarCategorias()

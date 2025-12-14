@@ -14,13 +14,14 @@
         <h2>Criar produto</h2>
         <input id="nomeProduto" placeholder="Nome do produto">
         <input id="precoProduto" type="number" step="0.01" placeholder="Preço">
-        <input id="categoriaIdProduto" type="number" placeholder="ID da categoria">
+        <select id="categoriaIdProduto">
+            <option value="">Selecione a categoria</option>
+        </select>
         <button onclick="criarProduto()">Criar</button>
     </section>
 
     <section>
         <h2>Listar todos</h2>
-        <button onclick="listarProdutos()">Atualizar</button>
         <ul id="listaProdutos"></ul>
     </section>
 

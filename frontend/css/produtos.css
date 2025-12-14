@@ -35,7 +35,7 @@ section h2 {
     padding-bottom: 8px;
 }
 
-input {
+input, select {
     padding: 8px 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -75,4 +75,3 @@ li {
     color: red;
     margin-top: 8px;
 }
-
