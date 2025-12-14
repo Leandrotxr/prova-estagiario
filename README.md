@@ -17,7 +17,7 @@ O backend é responsável por:
 * Gerenciar produtos
 * Validar dados
 * Persistir informações no banco SQLite
-* Executar testes automatizados (unitários e de integração)
+* **Executar testes automatizados (unitários e de integração)**
 
 O frontend é responsável por:
 
@@ -232,6 +232,101 @@ Projeto desenvolvido por **Leandro Teixeira** para fins de estudo, aprendizado e
 
 ---
 
+## 🔁 Pipeline CI/CD (GitHub Actions)
+
+O projeto conta com uma **pipeline de Integração Contínua (CI)** utilizando **GitHub Actions**, garantindo qualidade, segurança e confiabilidade a cada alteração no código.
+
+### 🎯 Objetivos da pipeline
+
+A pipeline é executada automaticamente a cada:
+
+* `push` para a branch `main`
+
+Ela é responsável por:
+
+* Instalar dependências
+* Executar testes automatizados
+* Gerar relatório de cobertura de testes
+* Armazenar artefatos
+* Enviar relatório por e-mail (opcional)
+
+---
+
+### 🧱 Jobs da pipeline
+
+#### 1️⃣ **Checkout do código**
+
+* Clona o repositório no ambiente do GitHub Actions
+
+---
+
+#### 2️⃣ **Configuração do ambiente Python**
+
+* Utiliza a versão **Python 3.13**
+* Cria ambiente isolado para execução
+
+---
+
+#### 3️⃣ **Instalação das dependências**
+
+* Dependências da aplicação
+* Dependências de testes (`pytest`, `pytest-cov`, `httpx`)
+
+---
+
+#### 4️⃣ **Execução dos testes**
+
+* Executa todos os testes unitários e de integração
+* Falha o workflow automaticamente se algum teste falhar
+
+```bash
+pytest --cov=app --cov-report=xml
+```
+
+---
+
+#### 5️⃣ **Relatório de cobertura de testes**
+
+* Gera arquivo `coverage.xml`
+* Exibe métricas de cobertura de código
+
+📊 Exemplo de métricas:
+
+* Linhas cobertas: **96%+**
+* Cobertura de regras de negócio e rotas
+
+---
+
+#### 6️⃣ **Upload de artefatos**
+
+* Armazena o relatório de cobertura como artefato do workflow
+* Pode ser baixado diretamente pela interface do GitHub
+
+---
+
+#### 7️⃣ **Envio de relatório por e-mail (opcional)**
+
+* Envia o relatório de testes automaticamente por e-mail
+* Utiliza SMTP seguro com **App Password**
+
+Secrets necessários no repositório:
+
+| Secret           | Descrição             |
+| ---------------- | --------------------- |
+| `EMAIL_USER`     | Email remetente       |
+| `EMAIL_PASSWORD` | App Password do email |
+| `EMAIL_TO`       | Email destinatário    |
+
+---
+
+### 📍 Onde visualizar os resultados
+
+* **Aba Actions** do repositório
+* Logs detalhados por job
+* Relatórios baixáveis em **Artifacts**
+
+---
+
 ## ✅ Status do projeto
 
 ✔ Backend funcional
@@ -240,3 +335,4 @@ Projeto desenvolvido por **Leandro Teixeira** para fins de estudo, aprendizado e
 ✔ Frontend integrado
 ✔ Interface amigável e organizada
 ✔ Testes automatizados (unitários e integração)
+✔ Pipeline CI/CD com GitHub Actions
