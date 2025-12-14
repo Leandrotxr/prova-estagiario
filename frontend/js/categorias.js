@@ -1,7 +1,7 @@
 function listarCategorias() {
     fetch(`${API_URL}/categorias/`)
         .then(res => {
-            if (!res.ok) throw new Error("Erro ao listar");
+            if (!res.ok) throw new Error("Erro ao listar categorias");
             return res.json();
         })
         .then(dados => {
@@ -83,14 +83,16 @@ function deletarCategoria() {
         body: JSON.stringify({ id: Number(id) })
     })
     .then(res => {
-        if (!res.ok) throw new Error("Erro ao deletar");
+        if (res.status === 404) {
+            throw new Error("Categoria não encontrada");
+        }
         document.getElementById("resultadoDelete").innerText =
             "Categoria deletada com sucesso";
         listarCategorias();
     })
     .catch(() => {
         document.getElementById("resultadoDelete").innerText =
-            "Erro ao deletar categoria";
+            "Categoria não encontrada";
     });
 }
 
