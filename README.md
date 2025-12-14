@@ -1,8 +1,8 @@
 # 📦 Sistema de Produtos e Categorias
 
-Este projeto consiste em uma **API REST (Backend)** desenvolvida em Python com FastAPI e um **Frontend web simples** em HTML, CSS e JavaScript puro para consumir essa API.
+Este projeto consiste em uma **API REST (Backend)** desenvolvida em Python com FastAPI e um **Frontend web** em HTML, CSS e JavaScript puro para consumir essa API.
 
-O sistema permite realizar um **CRUD completo** (Criar, Listar, Buscar, Atualizar e Deletar) de **Produtos** e **Categorias**, respeitando o relacionamento:
+O sistema permite realizar um **CRUD completo** (Criar, Listar, Atualizar e Deletar) de **Produtos** e **Categorias**, respeitando o relacionamento:
 
 * Uma **Categoria** pode ter vários **Produtos**
 * Um **Produto** pertence a apenas uma **Categoria**
@@ -226,12 +226,6 @@ O banco será recriado automaticamente.
 
 ---
 
-## 👤 Autor
-
-Projeto desenvolvido por **Leandro Teixeira** para fins de estudo, aprendizado em backend/frontend e avaliação técnica para estágio.
-
----
-
 ## 🔁 Pipeline CI/CD (GitHub Actions)
 
 O projeto conta com uma **pipeline de Integração Contínua (CI)** utilizando **GitHub Actions**, garantindo qualidade, segurança e confiabilidade a cada alteração no código.
@@ -324,6 +318,12 @@ Secrets necessários no repositório:
 * **Aba Actions** do repositório
 * Logs detalhados por job
 * Relatórios baixáveis em **Artifacts**
+
+---
+
+## 👤 Autor
+
+Projeto desenvolvido por Leandro Teixeira para a avaliação técnica de estágio, demonstrando a aplicação prática de conhecimentos em desenvolvimento backend e frontend.
 
 ---
 
