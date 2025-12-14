@@ -17,6 +17,7 @@ O backend é responsável por:
 * Gerenciar produtos
 * Validar dados
 * Persistir informações no banco SQLite
+* Executar testes automatizados (unitários e de integração)
 
 O frontend é responsável por:
 
@@ -24,15 +25,33 @@ O frontend é responsável por:
 * Consumo da API via `fetch`
 * Exibição e manipulação dos dados
 
+Os testes garantem:
+
+* Confiabilidade das regras de negócio
+* Correto funcionamento das rotas
+* Segurança em alterações futuras no código
+
 ---
 
 ## 🖥️ Preview do Frontend
 
 <p align="center">
-  <img src="frontend/assets/img.png" alt="Preview do sistema" width="600">
+  <img src="frontend/assets/menu.png" alt="Preview do sistema" width="600">
 </p>
 
 > Interface simples, limpa e centralizada, permitindo acesso às telas de **Categorias** e **Produtos**.
+
+<p align="center">
+  <img src="frontend/assets/categorias.png" alt="Preview de categorias" width="600">
+</p>
+
+> Interface simples, limpa e centralizada, permitindo criar, listar todas, buscar por ID e deletar por ID.
+
+<p align="center">
+  <img src="frontend/assets/produtos.png" alt="Preview do sistema" width="600">
+</p>
+
+> Interface simples, limpa e centralizada, permitindo criar, listar todos, buscar por ID, atualizar preço e deletar por ID.
 
 ---
 
@@ -46,6 +65,8 @@ O frontend é responsável por:
 * **Pydantic** – validação de dados
 * **SQLite** – banco de dados
 * **Uvicorn** – servidor ASGI
+* **Pytest** – testes automatizados
+* **HTTPX / TestClient** – testes de rotas
 
 ### Frontend
 
@@ -68,6 +89,18 @@ prova-estiario/
 │   ├── router/
 │   ├── main.py
 │   └── app.db
+│
+├── tests/
+│   ├── units/
+│   │   └── crud/
+│   │       ├── test_crud_categorias.py
+│   │       └── test_crud_produtos.py
+│   ├── integration/
+│   │   └── router/
+│   │       ├── test_router_categorias.py
+│   │       └── test_router_produtos.py
+│   ├── conftest.py
+│   └── pytest.ini
 │
 └── front/               
     ├── index.html
@@ -114,6 +147,12 @@ source .venv/bin/activate
 pip install fastapi uvicorn sqlalchemy pydantic python-dotenv
 ```
 
+### ➕ Dependências para testes
+
+```bash
+pip install pytest pytest-cov httpx
+```
+
 ---
 
 ### 3️⃣ Rodar a aplicação
@@ -129,6 +168,31 @@ A API estará disponível em:
 ```
 http://127.0.0.1:8000
 ```
+
+---
+
+## 🧪 Testes automatizados
+
+O projeto possui testes **unitários** e **de integração**, cobrindo:
+
+* Operações de CRUD
+* Regras de negócio
+* Rotas da API
+* Validações e erros esperados
+
+### ▶️ Rodar os testes
+
+Na raiz do projeto:
+
+```bash
+pytest
+```
+
+Os testes utilizam:
+
+* Banco SQLite em memória
+* Isolamento por teste
+* Override de dependências do FastAPI
 
 ---
 
@@ -175,3 +239,4 @@ Projeto desenvolvido por **Leandro Teixeira** para fins de estudo, aprendizado e
 ✔ Relacionamento entre tabelas
 ✔ Frontend integrado
 ✔ Interface amigável e organizada
+✔ Testes automatizados (unitários e integração)
