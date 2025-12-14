@@ -85,8 +85,6 @@ function buscarProduto() {
         });
 }
 
-
-
 function atualizarPreco() {
     const id = document.getElementById("atualizarProdutoId").value;
     const preco = document.getElementById("novoPrecoProduto").value;
@@ -128,7 +126,6 @@ function atualizarPreco() {
     });
 }
 
-
 function deletarProduto() {
     const id = document.getElementById("deletarProdutoId").value;
 
@@ -160,8 +157,6 @@ function deletarProduto() {
             err.message;
     });
 }
-
-
 
 function carregarCategorias() {
     fetch(`${API_URL}/categorias/`)

@@ -9,14 +9,11 @@ def criar_categoria(db: Session, dados: CategoriaCreate):
     db.refresh(categoria)
     return categoria
 
-
 def listar_categorias(db: Session):
     return db.query(Categoria).all()
 
-
 def buscar_categoria(db: Session, categoria_id: int):
     return db.query(Categoria).filter(Categoria.id == categoria_id).first()
-
 
 def deletar_categoria(db: Session, categoria: Categoria):
     db.delete(categoria)

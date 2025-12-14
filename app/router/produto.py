@@ -44,7 +44,6 @@ def atualizar_preco(dados: ProdutoPrecoUpdate, db: Session = Depends(get_db)):
 
     return produto.atualizar_preco_produto(db, produto_buscado, dados.preco)
 
-
 @router.delete("/deletar_produto")
 def deletar_produto(dados: ProdutoDelete, db: Session = Depends(get_db)):
     produto_buscado = produto.buscar_produto(db, dados.id)
@@ -54,4 +53,3 @@ def deletar_produto(dados: ProdutoDelete, db: Session = Depends(get_db)):
 
     produto.deletar_produto(db, produto_buscado)
     return {"msg": "Produto removido com sucesso"}
-
