@@ -49,3 +49,24 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
+
+      - name: 📧 Enviar relatório por e-mail
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "CI - Resultado dos testes"
+          body: |
+            Pipeline executada com status: ${{ job.status }}
+
+            Repositório: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+
+            O relatório de cobertura está anexado.
+          to: ${{ secrets.EMAIL_TO }}
+          from: GitHub Actions
+          attachments: coverage.xml
