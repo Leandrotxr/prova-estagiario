@@ -1,0 +1,51 @@
+name: CI - FastAPI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: 🧪 Criar ambiente virtual
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+
+      - name: ⬆️ Atualizar pip
+        run: |
+          source .venv/bin/activate
+          pip install --upgrade pip
+
+      - name: 📦 Instalar dependências
+        run: |
+          source .venv/bin/activate
+          pip install fastapi uvicorn sqlalchemy pydantic python-dotenv
+          pip install pytest pytest-cov httpx
+
+      - name: 🧪 Rodar testes
+        run: |
+          source .venv/bin/activate
+          pytest --cov=app --cov-report=term-missing
+
+      - name: 📊 Gerar relatório de cobertura
+        run: |
+          source .venv/bin/activate
+          pytest --cov=app --cov-report=xml
+
+      - name: 📁 Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
