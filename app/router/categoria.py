@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from app.router.deps import get_db
 from app.crud import categoria
@@ -28,8 +29,16 @@ def buscar_categoria(categoria_id: int, db: Session = Depends(get_db)):
 def deletar_categoria(dados: CategoriaDelete, db: Session = Depends(get_db)):
     categoria_buscada = categoria.buscar_categoria(db, dados.id)
 
-    if categoria_buscada is None:
-        raise HTTPException(404, "Categoria não encontrada")
+    if not categoria_buscada:
+        raise HTTPException(status_code=404, detail="Categoria não encontrada")
 
-    categoria.deletar_categoria(db, categoria_buscada)
-    return {"msg": "Categoria deletada"}
+    try:
+        categoria.deletar_categoria(db, categoria_buscada)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=409,
+            detail="Categoria possui produtos vinculados"
+        )
+
+    return {"msg": "Categoria removida com sucesso"}

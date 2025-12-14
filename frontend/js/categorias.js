@@ -69,6 +69,7 @@ function buscarCategoria() {
 
 function deletarCategoria() {
     const id = document.getElementById("deletarId").value;
+    const resultado = document.getElementById("resultadoDelete");
 
     if (!id) {
         alert("Informe o ID");
@@ -80,20 +81,22 @@ function deletarCategoria() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ id: Number(id) })
+        body: JSON.stringify({id: Number(id)})
     })
-    .then(res => {
-        if (res.status === 404) {
-            throw new Error("Categoria não encontrada");
-        }
-        document.getElementById("resultadoDelete").innerText =
-            "Categoria deletada com sucesso";
-        listarCategorias();
-    })
-    .catch(() => {
-        document.getElementById("resultadoDelete").innerText =
-            "Categoria não encontrada";
-    });
+        .then(async res => {
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.detail || "Erro ao deletar categoria");
+            }
+            return res.json();
+        })
+        .then(() => {
+            resultado.innerText = "Categoria removida com sucesso";
+            listarCategorias();
+        })
+        .catch(err => {
+            resultado.innerText = err.message;
+        });
 }
 
 listarCategorias();
