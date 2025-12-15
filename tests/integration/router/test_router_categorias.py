@@ -57,7 +57,7 @@ def test_deletar_categoria_sucesso(client):
     )
 
     assert response.status_code == 200
-    assert response.json()["msg"] == "Categoria deletada"
+    assert response.json()["msg"] == "Categoria removida com sucesso"
 
 
 def test_deletar_produto_inexistente(client):
