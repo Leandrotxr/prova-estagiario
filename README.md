@@ -336,3 +336,5 @@ Projeto desenvolvido por Leandro Teixeira para a avaliação técnica de estági
 ✔ Interface amigável e organizada
 ✔ Testes automatizados (unitários e integração)
 ✔ Pipeline CI/CD com GitHub Actions
+
+teste
